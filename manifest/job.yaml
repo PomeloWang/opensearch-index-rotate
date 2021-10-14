@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: opensearch-index-rotate
+  opensearch.instance: my-opensearch-instance
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+        - name: ilm
+          image: <images-name>
+          command:
+            [
+              "--host",
+              "<opensearch.domain.com",
+              "--days-ago",
+              "15",
+              "--index",
+              "pd*",
+            ]
+      restartPolicy: Never
+  backoffLimit: 3

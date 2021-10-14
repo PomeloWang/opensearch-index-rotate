@@ -1,0 +1,38 @@
+{
+    "policy": {
+        "description": "delete index from 15 days ago",
+        "schema_version": 1,
+        "default_state": "current",
+        "states": [
+            {
+                "name": "current",
+                "actions": [],
+                "transitions": [
+                    {
+                        "state_name": "delete",
+                        "conditions": {
+                            "min_index_age": "15d"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "delete",
+                "actions": [
+                    {
+                        "delete": {}
+                    }
+                ],
+                "transitions": []
+            }
+        ],
+        "ism_template": [
+            {
+                "index_patterns": [
+                    "test-ism-index-*"
+                ],
+                "priority": 100
+            }
+        ]
+    }
+}
